@@ -1,0 +1,42 @@
+/* ================= BANNER ================= */
+.banner {
+  width: 100%;
+  height: 300px;
+
+  background: linear-gradient(
+      rgba(0,0,0,0.4),
+      rgba(0,0,0,0.4)
+    ),
+    url("https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0");
+
+  background-size: cover;
+  background-position: center;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+  margin-bottom: 30px;
+}
+
+/* TEXT ON IMAGE */
+.banner-content {
+  text-align: center;
+  color: white;
+}
+
+.banner-content h1 {
+  font-size: 24px;
+}
+
+.banner-content h2 {
+  font-size: 36px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.banner-content p {
+  font-size: 14px;
+  color: #ddd;
+}
