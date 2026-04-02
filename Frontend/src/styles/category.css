@@ -1,0 +1,39 @@
+/* FORM */
+.form-box {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.form-box input {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.form-box button {
+  background: #d4af37;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+}
+
+/* LIST */
+.list-item {
+  background: white;
+  padding: 15px;
+  margin-top: 10px;
+  border-radius: 8px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.list-item button {
+  background: red;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+}

@@ -1,0 +1,37 @@
+.form-box {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.form-box input {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.form-box button {
+  background: #d4af37;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+}
+
+.list-item {
+  background: white;
+  color: black;
+  padding: 15px;
+  margin-top: 10px;
+  border-radius: 8px;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.list-item button {
+  background: red;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+}

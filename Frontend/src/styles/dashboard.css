@@ -1,42 +1,95 @@
-/* ================= BANNER ================= */
 .banner {
-  width: 100%;
-  height: 300px;
+  width: 100vw;              /* full screen width */
+  height: 520px;
 
-  background: linear-gradient(
-      rgba(0,0,0,0.4),
-      rgba(0,0,0,0.4)
-    ),
-    url("https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0");
+  margin-left: calc(-50vw + 96%); /* MAGIC LINE (very important) */
 
+  background: url("https://images.unsplash.com/photo-1601121141461-9d6647bca1ed");
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
 
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
 
-  border-radius: 12px;
-  margin-bottom: 30px;
+  padding-right: 90px;
 }
 
-/* TEXT ON IMAGE */
-.banner-content {
-  text-align: center;
-  color: white;
+/* TEXT */
+.banner-content::before {
+  content: "";
+  position: absolute;
+  left: -20px;
+  top: -10px;
+  width: 110%;
+  height: 120%;
+  background: rgba(0, 0, 0, 0.25); /* soft overlay */
+  z-index: -1;
+  border-radius: 10px;
 }
 
 .banner-content h1 {
-  font-size: 24px;
+  font-size: 26px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  color: white;
 }
 
 .banner-content h2 {
-  font-size: 36px;
-  font-weight: bold;
-  margin: 10px 0;
+  font-size: 40px;
+  font-weight: 600;
+  margin-top: 10px;
+  line-height: 1.2;
+  color: white;
 }
 
-.banner-content p {
-  font-size: 14px;
-  color: #ddd;
+/* DASHBOARD CARDS */
+.cards {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+/* CARD */
+.card {
+  flex: 1;
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  text-align: center;
+  cursor: pointer;
+
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+}
+
+/* ICON */
+.card .icon {
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+/* HOVER EFFECT */
+.card:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+/* ACTIVE CARD */
+.card.active {
+  border: 2px solid #d4af37;
+  background: #fff8e1;
+}
+
+/* TEXT */
+.card h3 {
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.card p {
+  font-size: 28px;
+  font-weight: bold;
+  color: #222;
 }

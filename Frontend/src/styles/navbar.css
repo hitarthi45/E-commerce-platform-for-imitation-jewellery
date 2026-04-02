@@ -18,6 +18,8 @@
   z-index: 1000;
 }
 
+
+
 /* LOGO */
 .logo {
   font-size: 22px;
@@ -46,12 +48,19 @@
   color: #000;
 }
 
+
 /* RIGHT SIDE */
 .nav-links {
   display: flex;
   gap: 25px;
   flex: 1;
   justify-content: center;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;   /* THIS adds space between login & signup */
 }
 
 .login-btn {

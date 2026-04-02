@@ -1,0 +1,58 @@
+/* FORM */
+.feedback-form {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  width: 400px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+.feedback-form h3 {
+  margin-bottom: 10px;
+}
+
+.feedback-form form {
+  display: flex;
+  flex-direction: column;
+}
+
+.feedback-form input,
+.feedback-form textarea {
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.feedback-form textarea {
+  height: 100px;
+  resize: none;
+}
+
+.feedback-form button {
+  margin-top: 15px;
+  padding: 10px;
+  border: none;
+  background: #d4af37;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.feedback-form button:hover {
+  background: #b8962e;
+}
+
+/* FEEDBACK LIST */
+.feedback-list h3 {
+  margin-bottom: 10px;
+}
+
+.feedback-card {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 10px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+}
