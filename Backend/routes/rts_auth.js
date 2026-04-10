@@ -33,7 +33,6 @@ router.post("/register", async (req, res) => {
 
 module.exports = router;
 
-
 // LOGIN
 router.post("/login", async (req, res) => {
   try {
