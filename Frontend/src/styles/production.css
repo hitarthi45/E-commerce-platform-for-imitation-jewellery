@@ -1,0 +1,260 @@
+/* ─────────────────────────────────────────
+   PAGE LAYOUT
+───────────────────────────────────────── */
+.page-container {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #f7f6f3;
+  min-height: 100vh;
+  padding-bottom: 48px;
+}
+
+/* ─────────────────────────────────────────
+   HEADER
+───────────────────────────────────────── */
+.page-header {
+  background: #ffffff;
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
+  padding: 22px 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.header-logo {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #c9a84c, #e8c96e, #a87830);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.header-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.header-subtitle {
+  font-size: 11px;
+  color: #888;
+  margin: 2px 0 0;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.header-badge {
+  font-size: 11px;
+  padding: 5px 13px;
+  border-radius: 20px;
+  background: #fdf6e3;
+  color: #8a6914;
+  border: 0.5px solid #d4a83a;
+  letter-spacing: 0.04em;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* ─────────────────────────────────────────
+   BODY
+───────────────────────────────────────── */
+.page-body {
+  padding: 32px 36px;
+}
+
+.section-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #aaa;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+/* ─────────────────────────────────────────
+   CARDS GRID
+───────────────────────────────────────── */
+.production-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 18px;
+}
+
+/* ─────────────────────────────────────────
+   CARD
+───────────────────────────────────────── */
+.production-card {
+  background: #ffffff;
+  border-radius: 14px;
+  border: 0.5px solid rgba(0, 0, 0, 0.09);
+  padding: 24px 20px 20px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: border-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* gold top accent line on hover */
+.production-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2.5px;
+  background: linear-gradient(90deg, #c9a84c, #e8c96e, #c9a84c);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.production-card:hover::before {
+  opacity: 1;
+}
+
+.production-card:hover {
+  border-color: rgba(0, 0, 0, 0.16);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+}
+
+/* ─── Card Text ─── */
+.card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.card-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.card-desc {
+  font-size: 13px;
+  color: #777;
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* ─── Card Footer ─── */
+.card-footer {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-count {
+  font-size: 12px;
+  color: #aaa;
+}
+
+.card-arrow {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 0.5px solid rgba(0, 0, 0, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+  transition: background 0.15s, color 0.15s;
+}
+
+.production-card:hover .card-arrow {
+  background: #fdf6e3;
+  border-color: #d4a83a;
+  color: #8a6914;
+}
+
+/* ─────────────────────────────────────────
+   BACK BAR & BREADCRUMB
+───────────────────────────────────────── */
+.back-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #555;
+  background: #ffffff;
+  border: 0.5px solid rgba(0, 0, 0, 0.12);
+  border-radius: 8px;
+  padding: 7px 14px;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+  font-family: inherit;
+}
+
+.back-btn:hover {
+  color: #1a1a1a;
+  border-color: rgba(0, 0, 0, 0.22);
+  background: #f9f9f9;
+}
+
+.breadcrumb {
+  font-size: 13px;
+  color: #aaa;
+}
+
+.breadcrumb strong {
+  color: #1a1a1a;
+  font-weight: 500;
+}
+
+/* ─────────────────────────────────────────
+   PLACEHOLDER (for future modules)
+───────────────────────────────────────── */
+.placeholder-panel {
+  background: #ffffff;
+  border: 0.5px solid rgba(0, 0, 0, 0.09);
+  border-radius: 14px;
+  padding: 48px;
+  text-align: center;
+  font-size: 14px;
+  color: #aaa;
+}
+
+/* ─────────────────────────────────────────
+   RESPONSIVE
+───────────────────────────────────────── */
+@media (max-width: 600px) {
+  .page-header {
+    padding: 16px 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .page-body {
+    padding: 24px 20px;
+  }
+
+  .production-cards {
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+}
+
+@media (max-width: 400px) {
+  .production-cards {
+    grid-template-columns: 1fr;
+  }
+}

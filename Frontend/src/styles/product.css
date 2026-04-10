@@ -1,37 +1,110 @@
+.page-header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 25px;
+}
+
+/* PUSH BUTTON TO RIGHT */
+.page-header h2 {
+  margin-right: auto;
+}
+
+/* BUTTON */
+.page-header button {
+  background: #1e88e5;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 25px;
+  cursor: pointer;
+
+  margin-left: 20px; /* SPACE BETWEEN TEXT & BUTTON */
+}
+
+/* FORM */
+.form-section {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
 .form-box {
   display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
+  flex-direction: column;
 }
 
 .form-box input {
-  padding: 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+  margin-top: 10px;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
 }
 
 .form-box button {
+  margin-top: 15px;
+  padding: 12px;
   background: #d4af37;
   color: white;
+  border-radius: 8px;
   border: none;
-  padding: 10px;
-  border-radius: 6px;
 }
 
+/* GRID */
+.list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 15px;
+}
+
+/* CARD */
 .list-item {
   background: white;
-  color: black;
   padding: 15px;
-  margin-top: 10px;
-  border-radius: 8px;
+  border-radius: 12px;
 
-  display: flex;
-  justify-content: space-between;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  transition: 0.3s;
 }
 
-.list-item button {
-  background: red;
-  color: white;
-  border: none;
-  padding: 6px 10px;
+.list-item:hover {
+  transform: translateY(-5px);
+}
+
+.list-item h4 {
+  margin-bottom: 5px;
+}
+
+.list-item p {
+  color: #666;
+}
+
+/* CATEGORY TAG */
+.category-tag {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 4px 10px;
+  font-size: 12px;
+
+  background: #f0e6c8;
+  color: #8a6d1d;
+
+  border-radius: 20px;
+}
+
+/* CARD UPGRADE */
+.list-item {
+  background: linear-gradient(135deg, #fff, #fafafa);
+  padding: 18px;
+  border-radius: 12px;
+
+  box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+  transition: 0.3s;
+}
+
+.list-item:hover {
+  transform: translateY(-6px) scale(1.02);
 }

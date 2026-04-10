@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../styles/feedback.css";
 
 function Feedback() {
@@ -9,7 +9,6 @@ function Feedback() {
 
   const [feedbackList, setFeedbackList] = useState([]);
 
-  // handle input
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -17,8 +16,15 @@ function Feedback() {
     });
   };
 
-  // handle submit
-  const handleSubmit = (e) => {
+  // ✅ FETCH FROM BACKEND
+  useEffect(() => {
+    fetch("http://localhost:5000/api/feedback")
+      .then(res => res.json())
+      .then(data => setFeedbackList(data))
+      .catch(err => console.log(err));
+  }, []);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!formData.name || !formData.message) {
@@ -26,56 +32,76 @@ function Feedback() {
       return;
     }
 
-    setFeedbackList([...feedbackList, formData]);
+    try {
+      // ✅ MAP FRONTEND → BACKEND FORMAT
+      const payload = {
+        product_id: "64f000000000000000000001", // dummy ObjectId (required)
+        rating: 5, // default rating
+        comment: `${formData.name}: ${formData.message}`,
+      };
 
-    setFormData({
-      name: "",
-      message: "",
-    });
+      const res = await fetch("http://localhost:5000/api/feedback", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await res.json();
+
+      // ✅ SHOW IN UI
+      setFeedbackList([...feedbackList, data]);
+
+      setFormData({ name: "", message: "" });
+
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
-    <div className="page-container">
-      <h2>Customer Feedback</h2>
+    <div className="feedback-page">
+      <div className="feedback-card">
 
-      {/* FORM */}
-      <div className="feedback-form">
-        <h3>Give Your Feedback</h3>
+        <div className="feedback-left">
+          <h4> IMITATION JEWELLERY</h4>
+          <h1>Crafted with care,<br /> worn with pride.</h1>
+          <p>Share your experience and help us improve our jewellery production and service.</p>
+        </div>
 
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            name="name"
-            placeholder="Your Name"
-            value={formData.name}
-            onChange={handleChange}
-          />
+        <div className="feedback-right">
+          <p className="welcome">FEEDBACK FORM</p>
+          <h2>Share Your Experience</h2>
 
-          <textarea
-            name="message"
-            placeholder="Your Feedback"
-            value={formData.message}
-            onChange={handleChange}
-          />
+          <form onSubmit={handleSubmit}>
+            <label>Name</label>
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+            />
 
-          <button type="submit">Submit</button>
-        </form>
-      </div>
+            <label>Feedback</label>
+            <textarea
+              name="message"
+              value={formData.message}
+              onChange={handleChange}
+            />
 
-      {/* FEEDBACK LIST */}
-      <div className="feedback-list">
-        <h3>Recent Feedback</h3>
+            <button type="submit">Submit Feedback →</button>
+          </form>
 
-        {feedbackList.length === 0 ? (
-          <p>No feedback yet</p>
-        ) : (
-          feedbackList.map((item, index) => (
-            <div key={index} className="feedback-card">
-              <h4>{item.name}</h4>
-              <p>{item.message}</p>
-            </div>
-          ))
-        )}
+          <div className="feedback-list">
+            {feedbackList.map((item, index) => (
+              <div key={index}>
+                <p>{item.comment}</p>
+              </div>
+            ))}
+          </div>
+
+        </div>
       </div>
     </div>
   );

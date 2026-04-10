@@ -1,0 +1,164 @@
+/* PAGE */
+.inventory-page {
+  padding: 40px 50px;
+  background: #f4f4f4;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+/* HEADER */
+.inventory-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.inventory-header h2 {
+  font-size: 26px;
+  font-weight: 600;
+  color: #222;
+}
+
+/* ADD BUTTON */
+.add-btn {
+  padding: 12px 20px;
+  background: #c9a44c;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.add-btn:hover {
+  background: #b8933f;
+}
+
+/* CARD CONTAINER */
+.inventory-card {
+  background: white;
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+  overflow-x: auto;
+}
+
+/* TABLE */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* HEADER ROW */
+thead {
+  background: #fafafa;
+}
+
+th {
+  text-align: left;
+  padding: 14px;
+  font-size: 14px;
+  color: #666;
+  font-weight: 600;
+}
+
+/* BODY ROW */
+td {
+  padding: 16px 14px;
+  border-top: 1px solid #eee;
+  font-size: 15px;
+  color: #333;
+}
+
+/* ROW HOVER */
+tbody tr {
+  transition: 0.2s;
+}
+
+tbody tr:hover {
+  background: #f9f9f9;
+}
+
+/* PRODUCT NAME */
+.product-name {
+  font-weight: 600;
+  color: #222;
+}
+
+/* STATUS BADGES */
+.status {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* STATUS COLORS */
+.status.low {
+  background: #fdecea;
+  color: #d93025;
+}
+
+.status.medium {
+  background: #fff4e5;
+  color: #f57c00;
+}
+
+.status.in {
+  background: #e6f4ea;
+  color: #1e8e3e;
+}
+
+/* ACTION BUTTONS */
+.actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* EDIT BUTTON */
+.edit-btn {
+  padding: 8px 14px;
+  background: #43a047;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.edit-btn:hover {
+  background: #388e3c;
+}
+
+/* DELETE BUTTON */
+.delete-btn {
+  padding: 8px 14px;
+  background: #e53935;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.delete-btn:hover {
+  background: #c62828;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .inventory-page {
+    padding: 20px;
+  }
+
+  th, td {
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  .add-btn {
+    padding: 8px 12px;
+  }
+}

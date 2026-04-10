@@ -1,0 +1,120 @@
+/* PAGE BACKGROUND */
+.order-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f4f4f4;
+  padding: 20px; /* prevents edge cutting */
+}
+
+/* MAIN CARD */
+.order-card {
+  width: 90%;
+  max-width: 1100px;
+  min-height: 85vh;   /* ✅ FIXED (was height) */
+  display: flex;
+  border-radius: 20px;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+/* LEFT SIDE */
+.order-left {
+  flex: 1;
+  background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+    url("https://images.unsplash.com/photo-1611652022419-a9419f74343d")
+    center/cover;
+
+  color: #f5d27a;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.order-left h4 {
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+}
+
+.order-left h1 {
+  font-size: 34px;
+  margin: 20px 0;
+}
+
+.order-left p {
+  font-size: 15px;
+}
+
+/* RIGHT SIDE */
+.order-right {
+  flex: 1;
+  padding: 50px;
+  background: #fafafa;
+  overflow-y: auto;   /* ✅ scroll fix */
+}
+
+.order-right .welcome {
+  color: #c9a44c;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.order-right h2 {
+  margin-bottom: 20px;
+}
+
+/* FORM */
+.order-right form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;   /* ✅ spacing fix */
+  padding-bottom: 40px; /* ✅ bottom spacing fix */
+}
+
+/* LABEL */
+.order-right label {
+  font-size: 14px;
+  margin-bottom: 3px;
+}
+
+/* INPUT + SELECT */
+.order-right input,
+.order-right select {
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  background: #3f3f3f;
+  color: white;
+  font-size: 14px;
+}
+
+/* PLACEHOLDER FIX */
+.order-right input::placeholder,
+.order-right textarea::placeholder {
+  color: #ccc;
+}
+
+/* SELECT DROPDOWN */
+.order-right select {
+  color: white;
+}
+
+/* BUTTON */
+.order-right button {
+  margin-top: 10px;
+  padding: 14px;
+  background: #c9a44c;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.order-right button:hover {
+  background: #b8933f;
+}
