@@ -118,3 +118,46 @@
 .order-right button:hover {
   background: #b8933f;
 }
+
+/* TRACKING SECTION */
+.tracking-section {
+  margin-top: 30px;
+  border-top: 1px solid #ddd;
+  padding-top: 20px;
+}
+
+.order-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.tracking-card {
+  background: #fff;
+  border: 1px solid #eee;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.tracking-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.status-badge {
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  font-weight: bold;
+  background: #eee;
+}
+
+.status-badge.manufacturing { background: #fff4e5; color: #b07d00; }
+.status-badge.manufactured { background: #e6fffa; color: #2c7a7b; }
+
+.eta-text { font-size: 13px; color: #666; }

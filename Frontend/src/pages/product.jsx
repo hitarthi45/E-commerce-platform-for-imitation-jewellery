@@ -1,32 +1,29 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "../styles/product.css";
 
 function Product() {
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
   const [products, setProducts] = useState([
-    { name: "Studs", price: 499, category: "Earrings" },
+    // Earrings
     { name: "Jhumkas", price: 899, category: "Earrings" },
     { name: "Chandbalis", price: 1299, category: "Earrings" },
-    { name: "Danglers", price: 799, category: "Earrings" },
 
+    // Necklaces
     { name: "Chains", price: 999, category: "Necklace" },
     { name: "Pendants", price: 699, category: "Necklace" },
-    { name: "Full Set", price: 1999, category: "Necklace" },
-    { name: "Raani Haar", price: 2999, category: "Necklace" },
 
+    // Bangles
     { name: "Kadas", price: 599, category: "Bangles" },
-    { name: "Chudis", price: 399, category: "Bangles" },
     { name: "Bracelets", price: 899, category: "Bangles" },
-    { name: "Armlets", price: 1499, category: "Bangles" },
 
+    // Anklets
     { name: "Payal", price: 499, category: "Anklets" },
     { name: "Toe Rings", price: 199, category: "Anklets" },
-    { name: "Anklet Chains", price: 699, category: "Anklets" },
-    { name: "Anklet Sets", price: 1299, category: "Anklets" },
   ]);
 
-  const [categories, setCategories] = useState([]); // 🔥 NEW
-
   const [showForm, setShowForm] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const [input, setInput] = useState({
     name: "",
@@ -34,34 +31,27 @@ function Product() {
     category: "",
   });
 
-  // 🔥 FETCH PRODUCTS FROM BACKEND
-  useEffect(() => {
-    fetch("http://localhost:5000/api/product")
-      .then(res => res.json())
-      .then(data => {
-        const formatted = data.map(p => ({
-          name: p.name,
-          price: p.price,
-          category: p.category_id?.name
-        }));
-        setProducts(formatted);
-      })
-      .catch(err => console.log(err));
-  }, []);
+  // ✅ PRODUCT IMAGE MAP
+  const productImages = {
+    Jhumkas: "https://images.unsplash.com/photo-1714733831162-0a6e849141be?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8amh1bWthfGVufDB8fDB8fHww",
+    Chandbalis: "https://media.istockphoto.com/id/1466950968/photo/artifical-jewllary.webp?a=1&b=1&s=612x612&w=0&k=20&c=eA0UOPlxvjUCFbL9N7qmuosfdG9-nwe5EsiYacC-mQw=",
 
-  // 🔥 FETCH CATEGORIES
-  useEffect(() => {
-    fetch("http://localhost:5000/api/category")
-      .then(res => res.json())
-      .then(data => setCategories(data))
-      .catch(err => console.log(err));
-  }, []);
+    Chains: "https://plus.unsplash.com/premium_photo-1709033404514-c3953af680b4?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8amV3ZWxyeXxlbnwwfHwwfHx8MA%3D%3D",
+    Pendants: "https://plus.unsplash.com/premium_photo-1681276169450-4504a2442173?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8cGVuZGFudHN8ZW58MHx8MHx8fDA%3D",
+
+    Kadas: "https://images.unsplash.com/photo-1679156272446-30738eb5c4e7?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8aGFuZCUyMGthZGF8ZW58MHx8MHx8fDA%3D",
+    Bracelets: "https://images.unsplash.com/photo-1692421098809-6cdfcfea289a?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fGJyYWNlbGV0c3xlbnwwfHwwfHx8MA%3D%3D",
+
+    Payal: "https://images.unsplash.com/photo-1599799045747-9dbfcfef6b97?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "Toe Rings":
+      "https://plus.unsplash.com/premium_photo-1679243794157-fb9220aee0af?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8VG9lJTIwcmluZ3MlMjBpbiUyMGpld2VsbGVyeSUyMGZvcm18ZW58MHx8MHx8fDA%3D",
+  };
 
   const handleChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
 
-  const handleAdd = async (e) => {
+  const handleAdd = (e) => {
     e.preventDefault();
 
     if (!input.name || !input.price || !input.category) {
@@ -69,61 +59,34 @@ function Product() {
       return;
     }
 
-    try {
-      // 🔥 FIND CATEGORY ID FROM NAME
-      const selectedCategory = categories.find(
-        (cat) => cat.name === input.category
-      );
-
-      if (!selectedCategory) {
-        alert("Category not found in DB");
-        return;
-      }
-
-      const payload = {
-        name: input.name,
-        price: Number(input.price),
-        category_id: selectedCategory._id
-      };
-
-      const res = await fetch("http://localhost:5000/api/product", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(payload)
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        alert(data.error || "Error adding product");
-        return;
-      }
-
-      // ✅ KEEP YOUR ORIGINAL LOGIC
-      setProducts([...products, input]);
-
-      setInput({ name: "", price: "", category: "" });
-      setShowForm(false);
-
-    } catch (error) {
-      console.log(error);
-      alert("Server error");
-    }
+    setProducts([...products, input]);
+    setInput({ name: "", price: "", category: "" });
+    setInput({ name: "", price: "", category: "", image: "" });
+    setShowForm(false);
   };
 
   return (
     <div className="page-container">
 
+      {/* HEADER */}
       <div className="page-header">
         <h2>Product Management</h2>
-
-        <button onClick={() => setShowForm(!showForm)}>
-          {showForm ? "Close" : "+ Add New"}
-        </button>
+        <div style={{ display: "flex", gap: "20px", alignItems: "center" }}>
+          <input
+            type="text"
+            placeholder="Search products..."
+            className="form-input"
+            style={{ width: "250px", margin: "0", padding: "10px 15px", borderRadius: "25px", border: "1px solid #ddd", fontSize: "14px", backgroundColor: "white", color: "#333" }}
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          <button onClick={() => setShowForm(!showForm)}>
+            {showForm ? "Close" : "+ Add New"}
+          </button>
+        </div>
       </div>
 
+      {/* FORM */}
       {showForm && (
         <div className="form-section">
           <h3>Add Product</h3>
@@ -153,21 +116,81 @@ function Product() {
               onChange={handleChange}
             />
 
+            <div className="image-input-wrapper" style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+              <input
+                type="text"
+                name="image"
+                placeholder="Paste Image Link"
+                value={input.image}
+                onChange={handleChange}
+              />
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleFileChange}
+              />
+            </div>
+
             <button>Add Product</button>
           </form>
         </div>
       )}
 
+      {/* LIST */}
       <div className="list">
-        {products.length === 0 ? (
+        {products.filter(p => 
+          p.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+          p.category.toLowerCase().includes(searchTerm.toLowerCase())
+        ).length === 0 ? (
           <p>No products yet</p>
         ) : (
-          products.map((prod, index) => (
-            <div className="list-item" key={index}>
-              <h4>{prod.name}</h4>
-              <p>₹{prod.price} | {prod.category}</p>
+          products
+            .filter(p => 
+              p.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+              p.category.toLowerCase().includes(searchTerm.toLowerCase())
+            )
+            .map((prod, index) => (
+            <div
+              className="list-item product-card"
+              key={index}
+              style={{
+                backgroundImage: `url(${
+                  productImages[prod.name] ||
+                  "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338"
+                })`,
+              }}
+            >
+              <div className="product-overlay">
+                <h4>{prod.name}</h4>
+                <p>
+                  ₹{prod.price} | {prod.category}
+                </p>
+              </div>
             </div>
           ))
+            .map((prod, index) => {
+              const productKey = Object.keys(productImages).find(k => k.toLowerCase() === prod.name.toLowerCase());
+              const bgImage = prod.image || productImages[productKey];
+
+              return (
+                <div
+                  className="list-item product-card"
+                  key={index}
+                  style={{
+                    backgroundImage: bgImage ? `url(${bgImage})` : "none",
+                    backgroundColor: bgImage ? "transparent" : "#f5f5f5",
+                    border: bgImage ? "none" : "1px dashed #ddd"
+                  }}
+                >
+                  <div className="product-overlay">
+                    <h4>{prod.name}</h4>
+                    <p>
+                      ₹{prod.price} | {prod.category}
+                    </p>
+                  </div>
+                </div>
+              );
+            })
         )}
       </div>
 

@@ -2,28 +2,27 @@ import { useState, useEffect } from "react";
 import "../styles/inventory.css";
 
 function Inventory() {
-  const [items, setItems] = useState([
-    { name: "Studs", category: "Earrings", price: 499, stock: 5 },
-    { name: "Jhumkas", category: "Earrings", price: 899, stock: 20 },
-    { name: "Chains", category: "Necklace", price: 999, stock: 8 },
-    { name: "Raani Haar", category: "Necklace", price: 2999, stock: 2 },
-    { name: "Payal", category: "Anklets", price: 499, stock: 6 },
-    { name: "Anklet chain", category: "Anklets", price: 699, stock: 5 },
-    { name: "Kadas", category: "Bangles", price: 599, stock: 12 },
-    { name: "Bracelets", category: "Bangles", price: 899, stock: 3 },
-  ]);
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
-  // 🔥 FETCH FROM BACKEND
+  const [items, setItems] = useState([]);
+
+  //  FETCH FROM BACKEND
   useEffect(() => {
-    fetch("http://localhost:5000/api/inventory")
+    const token = localStorage.getItem("token");
+    fetch(`${API_URL}/api/inventory`, {
+      headers: { "Authorization": `Bearer ${token}` }
+    })
       .then(res => res.json())
       .then(data => {
+        if (!Array.isArray(data)) return;
         const formatted = data.map(item => ({
           name: item.product_id?.name,
           category: item.product_id?.category_id,
           price: item.product_id?.price,
           stock: item.quantity,
-          product_id: item.product_id?._id
+          product_id: item.product_id?._id,
+          inventory_id: item._id, // ✅ Store the DB ID for updates
+          status: item.status || "active" // ✅ Default to active
         }));
 
         setItems(formatted);
@@ -31,14 +30,51 @@ function Inventory() {
       .catch(err => console.log(err));
   }, []);
 
-  const getStatus = (stock) => {
+  const getStatus = (stock, status) => {
+    if (status === "inactive") return "Inactive";
     if (stock <= 5) return "Low";
     if (stock <= 10) return "Medium";
     return "In Stock";
   };
 
+  // TOGGLE ACTIVE/INACTIVE (SOFT DELETE)
+  const handleToggleStatus = async (index) => {
+    const item = items[index];
+
+    if (!item.inventory_id) {
+      alert("Cannot update status: Inventory ID missing.");
+      return;
+    }
+
+    const newStatus = item.status === "active" ? "inactive" : "active";
+
+    try {
+      const token = localStorage.getItem("token");
+      const res = await fetch(`${API_URL}/api/inventory/${item.inventory_id}`, {
+        method: "PUT",
+        headers: { 
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({ status: newStatus })
+      });
+
+      if (!res.ok) {
+        alert("Failed to update status");
+        return;
+      }
+
+      const updatedItems = [...items];
+      updatedItems[index].status = newStatus;
+      setItems(updatedItems);
+    } catch (err) {
+      console.error(err);
+      alert("Server error while updating status");
+    }
+  };
+
   const handleDelete = (index) => {
-    setItems(items.filter((_, i) => i !== index));
+    alert("Note: Use the Deactivate button to archive. Delete is for permanent removal.");
   };
 
   const handleEdit = (index) => {
@@ -56,10 +92,12 @@ function Inventory() {
     }
 
     try {
-      const res = await fetch("http://localhost:5000/api/inventory", {
+      const token = localStorage.getItem("token");
+      const res = await fetch(`${API_URL}/api/inventory`, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
         },
         body: JSON.stringify({ product_id, quantity })
       });
@@ -74,7 +112,9 @@ function Inventory() {
       alert("Inventory updated successfully!");
 
       // 🔄 Refresh data
-      fetch("http://localhost:5000/api/inventory")
+      fetch(`${API_URL}/api/inventory`, {
+        headers: { "Authorization": `Bearer ${token}` }
+      })
         .then(res => res.json())
         .then(data => {
           const formatted = data.map(item => ({
@@ -82,7 +122,9 @@ function Inventory() {
             category: item.product_id?.category_id,
             price: item.product_id?.price,
             stock: item.quantity,
-            product_id: item.product_id?._id
+            product_id: item.product_id?._id,
+            inventory_id: item._id,
+            status: item.status || "active"
           }));
 
           setItems(formatted);
@@ -128,12 +170,19 @@ function Inventory() {
                 <td>{item.stock}</td>
 
                 <td>
-                  <span className={`status ${getStatus(item.stock).toLowerCase()}`}>
-                    {getStatus(item.stock)}
+                  <span className={`status ${getStatus(item.stock, item.status).toLowerCase().replace(" ", "-")}`}>
+                    {getStatus(item.stock, item.status)}
                   </span>
                 </td>
 
                 <td className="actions">
+                  <button
+                    className={item.status === "active" ? "deactivate-btn" : "activate-btn"}
+                    onClick={() => handleToggleStatus(index)}
+                  >
+                    {item.status === "active" ? "Deactivate" : "Activate"}
+                  </button>
+
                   <button
                     className="edit-btn"
                     onClick={() => handleEdit(index)}

@@ -29,12 +29,13 @@ const handleSubmit = async (e) => {
       return;
     }
 
-    // ✅ Save token
+    //  Save token
     localStorage.setItem("token", data.token);
+    localStorage.setItem("role", data.role);
 
     console.log("Login Success:", data);
 
-    // ✅ Redirect
+    //  Redirect
     navigate("/");
 
   } catch (err) {

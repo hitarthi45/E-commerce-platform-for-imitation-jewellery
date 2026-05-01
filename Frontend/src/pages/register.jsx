@@ -9,6 +9,7 @@ function Register() {
     lastName: "",
     email: "",
     password: "",
+    role: "",
   });
 
   const handleChange = (e) => {
@@ -28,6 +29,7 @@ const handleSubmit = async (e) => {
         name: form.firstName + " " + form.lastName,
         email: form.email,
         password: form.password,
+        role: form.role,
       }),
     });
 
@@ -155,6 +157,23 @@ const handleSubmit = async (e) => {
                 onChange={handleChange}
                 required
               />
+            </div>
+
+            <div className="form-group">
+              <label className="form-label" htmlFor="role">Role</label>
+              <select
+                className="form-input"
+                id="role"
+                name="role"
+                value={form.role}
+                onChange={handleChange}
+                required
+              >
+                <option value="">Select your role</option>
+                <option value="admin">Admin</option>
+                <option value="manufacturer">Manufacturer</option>
+                <option value="retailer">Retailer</option>
+              </select>
             </div>
 
             <button className="auth-btn" type="submit">

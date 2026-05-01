@@ -1,10 +1,83 @@
-body {
+/* RESET */
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
 }
 
-/* prevents content going under navbar */
+/* BODY */
+body {
+  background: #f4f6f9;
+  color: #333;
+}
+
+/* PAGE CONTENT */
 .page {
   margin-top: 80px;
-  padding: 20px;
+  padding: 0px;
+}
+
+/* COMMON BUTTON */
+button {
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+/* FORM */
+.form-section {
+  margin-bottom: 30px;
+}
+
+form {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+form input {
+  padding: 8px;
+}
+
+form button {
+  background: #d4af37;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+}
+
+/* TABLE */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* BUTTONS */
+.btn-edit {
+  background: blue;
+  color: white;
+  margin-right: 5px;
+}
+
+.btn-delete {
+  background: red;
+  color: white;
+}
+
+/* FEEDBACK */
+.feedback-card {
+  background: white;
+  color: black;
+  padding: 15px;
+  margin-top: 10px;
+  border-radius: 8px;
 }

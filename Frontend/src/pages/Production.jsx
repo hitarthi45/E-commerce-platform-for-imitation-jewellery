@@ -1,6 +1,6 @@
 import { useState } from "react";
-import Category from "./Category";
-import Product from "./Product";
+import Category from "./category";
+import Product from "./product";
 import Material from "./Material";
 import "../styles/production.css";
 

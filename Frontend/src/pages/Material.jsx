@@ -2,6 +2,8 @@ import { useState } from "react";
 import "../styles/material.css";
 
 function Material() {
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
   const [materials, setMaterials] = useState([
     { name: "Gold Plating", type: "Metal", cost: 500, stock: 20 },
     { name: "Pearls", type: "Beads", cost: 200, stock: 8 },
@@ -9,6 +11,7 @@ function Material() {
   ]);
 
   const [showForm, setShowForm] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const [input, setInput] = useState({
     name: "",
@@ -50,10 +53,18 @@ function Material() {
       {/* HEADER */}
       <div className="page-header">
         <h2>Material Management</h2>
-
-        <button onClick={() => setShowForm(!showForm)}>
-          {showForm ? "Close" : "+ Add Material"}
-        </button>
+        <div style={{ display: "flex", gap: "20px", alignItems: "center" }}>
+          <input
+            type="text"
+            placeholder="Search materials..."
+            style={{ width: "250px", margin: "0", padding: "10px 15px", borderRadius: "25px", border: "1px solid #ddd", fontSize: "14px", backgroundColor: "white", color: "#333" }}
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          <button onClick={() => setShowForm(!showForm)}>
+            {showForm ? "Close" : "+ Add Material"}
+          </button>
+        </div>
       </div>
 
       {/* FORM */}
@@ -114,7 +125,10 @@ function Material() {
           </thead>
 
           <tbody>
-            {materials.map((mat, index) => (
+            {materials.filter(m => 
+              m.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+              m.type.toLowerCase().includes(searchTerm.toLowerCase())
+            ).map((mat, index) => (
               <tr key={index}>
                 <td>{mat.name}</td>
                 <td>{mat.type}</td>

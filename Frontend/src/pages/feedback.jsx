@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import "../styles/feedback.css";
 
 function Feedback() {
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
   const [formData, setFormData] = useState({
     name: "",
     message: "",
@@ -18,7 +20,7 @@ function Feedback() {
 
   // ✅ FETCH FROM BACKEND
   useEffect(() => {
-    fetch("http://localhost:5000/api/feedback")
+    fetch(`${API_URL}/api/feedback`)
       .then(res => res.json())
       .then(data => setFeedbackList(data))
       .catch(err => console.log(err));
@@ -33,14 +35,14 @@ function Feedback() {
     }
 
     try {
-      // ✅ MAP FRONTEND → BACKEND FORMAT
+      //  MAP FRONTEND → BACKEND FORMAT
       const payload = {
         product_id: "64f000000000000000000001", // dummy ObjectId (required)
         rating: 5, // default rating
         comment: `${formData.name}: ${formData.message}`,
       };
 
-      const res = await fetch("http://localhost:5000/api/feedback", {
+      const res = await fetch(`${API_URL}/api/feedback`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -50,7 +52,7 @@ function Feedback() {
 
       const data = await res.json();
 
-      // ✅ SHOW IN UI
+      //  SHOW IN UI
       setFeedbackList([...feedbackList, data]);
 
       setFormData({ name: "", message: "" });
@@ -76,11 +78,13 @@ function Feedback() {
 
           <form onSubmit={handleSubmit}>
             <label>Name</label>
+            
             <input
               type="text"
               name="name"
               value={formData.name}
               onChange={handleChange}
+              placeholder="Your Name"
             />
 
             <label>Feedback</label>
@@ -88,6 +92,7 @@ function Feedback() {
               name="message"
               value={formData.message}
               onChange={handleChange}
+              placeholder="Your feedback here..."
             />
 
             <button type="submit">Submit Feedback →</button>
